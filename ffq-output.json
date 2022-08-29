@@ -1,0 +1,732 @@
+{
+    "SRR13192645": {
+        "accession": "SRR13192645",
+        "experiment": "SRX9627035",
+        "study": "SRP295673",
+        "sample": "SRS7828004",
+        "title": "NextSeq 500 paired end sequencing; GSM4955359: uninj_sample1; Mus musculus; RNA-Seq",
+        "attributes": {
+            "assembly": "GRCm38",
+            "ENA-FIRST-PUBLIC": "2021-03-02",
+            "ENA-LAST-UPDATE": "2021-06-08"
+        },
+        "files": {
+            "ftp": [
+                {
+                    "accession": "SRR13192645",
+                    "filename": "uninj_sample1_possorted_genome_bam.bam.1",
+                    "filetype": "bam",
+                    "filesize": 37129179016,
+                    "filenumber": 1,
+                    "md5": "58a10564e9c8d30e869675eeaffdd53d",
+                    "urltype": "ftp",
+                    "url": "ftp://ftp.sra.ebi.ac.uk/vol1/run/SRR131/SRR13192645/uninj_sample1_possorted_genome_bam.bam.1"
+                }
+            ],
+            "aws": [
+                {
+                    "accession": "SRR13192645",
+                    "filename": "uninj_sample1_possorted_genome_bam.bam.1",
+                    "filetype": "bam",
+                    "filesize": null,
+                    "filenumber": 1,
+                    "md5": null,
+                    "urltype": "aws",
+                    "url": "https://sra-pub-src-2.s3.amazonaws.com/SRR13192645/uninj_sample1_possorted_genome_bam.bam.1"
+                },
+                {
+                    "accession": "SRR13192645",
+                    "filename": "SRR13192645",
+                    "filetype": "sra",
+                    "filesize": null,
+                    "filenumber": 1,
+                    "md5": null,
+                    "urltype": "aws",
+                    "url": "https://sra-pub-run-odp.s3.amazonaws.com/sra/SRR13192645/SRR13192645"
+                }
+            ],
+            "gcp": [
+                {
+                    "accession": "SRR13192645",
+                    "filename": "uninj_sample1_possorted_genome_bam.bam.1",
+                    "filetype": "bam",
+                    "filesize": null,
+                    "filenumber": 1,
+                    "md5": null,
+                    "urltype": "gcp",
+                    "url": "gs://sra-pub-src-1/SRR13192645/uninj_sample1_possorted_genome_bam.bam.1"
+                },
+                {
+                    "accession": "SRR13192645",
+                    "filename": "SRR13192645.1",
+                    "filetype": "sra",
+                    "filesize": null,
+                    "filenumber": 1,
+                    "md5": null,
+                    "urltype": "gcp",
+                    "url": "gs://sra-pub-run-2/SRR13192645/SRR13192645.1"
+                }
+            ],
+            "ncbi": []
+        }
+    },
+    "SRR13192646": {
+        "accession": "SRR13192646",
+        "experiment": "SRX9627036",
+        "study": "SRP295673",
+        "sample": "SRS7828005",
+        "title": "NextSeq 500 paired end sequencing; GSM4955360: uninj_sample2; Mus musculus; RNA-Seq",
+        "attributes": {
+            "assembly": "GRCm38",
+            "ENA-FIRST-PUBLIC": "2021-03-02",
+            "ENA-LAST-UPDATE": "2021-06-08"
+        },
+        "files": {
+            "ftp": [
+                {
+                    "accession": "SRR13192646",
+                    "filename": "uninj_sample2_possorted_genome_bam.bam.1",
+                    "filetype": "bam",
+                    "filesize": 37020312171,
+                    "filenumber": 1,
+                    "md5": "21bc8dd9278d57f43cc102442b5f50a7",
+                    "urltype": "ftp",
+                    "url": "ftp://ftp.sra.ebi.ac.uk/vol1/run/SRR131/SRR13192646/uninj_sample2_possorted_genome_bam.bam.1"
+                }
+            ],
+            "aws": [
+                {
+                    "accession": "SRR13192646",
+                    "filename": "uninj_sample2_possorted_genome_bam.bam.1",
+                    "filetype": "bam",
+                    "filesize": null,
+                    "filenumber": 1,
+                    "md5": null,
+                    "urltype": "aws",
+                    "url": "https://sra-pub-src-2.s3.amazonaws.com/SRR13192646/uninj_sample2_possorted_genome_bam.bam.1"
+                },
+                {
+                    "accession": "SRR13192646",
+                    "filename": "uninj_sample2_possorted_genome_bam.bam.1",
+                    "filetype": "bam",
+                    "filesize": null,
+                    "filenumber": 1,
+                    "md5": null,
+                    "urltype": "aws",
+                    "url": "https://sra-pub-sars-cov2.s3.amazonaws.com/sra-src/SRR13192646/uninj_sample2_possorted_genome_bam.bam.1"
+                },
+                {
+                    "accession": "SRR13192646",
+                    "filename": "SRR13192646",
+                    "filetype": "sra",
+                    "filesize": null,
+                    "filenumber": 1,
+                    "md5": null,
+                    "urltype": "aws",
+                    "url": "https://sra-pub-sars-cov2.s3.amazonaws.com/run/SRR13192646/SRR13192646"
+                },
+                {
+                    "accession": "SRR13192646",
+                    "filename": "SRR13192646",
+                    "filetype": "sra",
+                    "filesize": null,
+                    "filenumber": 1,
+                    "md5": null,
+                    "urltype": "aws",
+                    "url": "https://sra-pub-run-odp.s3.amazonaws.com/sra/SRR13192646/SRR13192646"
+                }
+            ],
+            "gcp": [
+                {
+                    "accession": "SRR13192646",
+                    "filename": "uninj_sample2_possorted_genome_bam.bam.1",
+                    "filetype": "bam",
+                    "filesize": null,
+                    "filenumber": 1,
+                    "md5": null,
+                    "urltype": "gcp",
+                    "url": "https://storage.googleapis.com/nih-sequence-read-archive/sra-src/SRR13192646/uninj_sample2_possorted_genome_bam.bam.1"
+                },
+                {
+                    "accession": "SRR13192646",
+                    "filename": "SRR13192646",
+                    "filetype": "sra",
+                    "filesize": null,
+                    "filenumber": 1,
+                    "md5": null,
+                    "urltype": "gcp",
+                    "url": "https://storage.googleapis.com/nih-sequence-read-archive/run/SRR13192646/SRR13192646"
+                }
+            ],
+            "ncbi": []
+        }
+    },
+    "SRR13192647": {
+        "accession": "SRR13192647",
+        "experiment": "SRX9627037",
+        "study": "SRP295673",
+        "sample": "SRS7828006",
+        "title": "NextSeq 500 paired end sequencing; GSM4955361: uninj_sample3; Mus musculus; RNA-Seq",
+        "attributes": {
+            "assembly": "GRCm38",
+            "ENA-FIRST-PUBLIC": "2021-03-02",
+            "ENA-LAST-UPDATE": "2021-06-08"
+        },
+        "files": {
+            "ftp": [
+                {
+                    "accession": "SRR13192647",
+                    "filename": "uninj_sample3_possorted_genome_bam.bam.1",
+                    "filetype": "bam",
+                    "filesize": 35947915312,
+                    "filenumber": 1,
+                    "md5": "497b94c790ec66b1740435fcf58b67d4",
+                    "urltype": "ftp",
+                    "url": "ftp://ftp.sra.ebi.ac.uk/vol1/run/SRR131/SRR13192647/uninj_sample3_possorted_genome_bam.bam.1"
+                }
+            ],
+            "aws": [
+                {
+                    "accession": "SRR13192647",
+                    "filename": "uninj_sample3_possorted_genome_bam.bam.1",
+                    "filetype": "bam",
+                    "filesize": null,
+                    "filenumber": 1,
+                    "md5": null,
+                    "urltype": "aws",
+                    "url": "https://sra-pub-src-1.s3.amazonaws.com/SRR13192647/uninj_sample3_possorted_genome_bam.bam.1"
+                },
+                {
+                    "accession": "SRR13192647",
+                    "filename": "SRR13192647",
+                    "filetype": "sra",
+                    "filesize": null,
+                    "filenumber": 1,
+                    "md5": null,
+                    "urltype": "aws",
+                    "url": "https://sra-pub-run-odp.s3.amazonaws.com/sra/SRR13192647/SRR13192647"
+                }
+            ],
+            "gcp": [
+                {
+                    "accession": "SRR13192647",
+                    "filename": "uninj_sample3_possorted_genome_bam.bam.1",
+                    "filetype": "bam",
+                    "filesize": null,
+                    "filenumber": 1,
+                    "md5": null,
+                    "urltype": "gcp",
+                    "url": "gs://sra-pub-src-1/SRR13192647/uninj_sample3_possorted_genome_bam.bam.1"
+                },
+                {
+                    "accession": "SRR13192647",
+                    "filename": "SRR13192647.1",
+                    "filetype": "sra",
+                    "filesize": null,
+                    "filenumber": 1,
+                    "md5": null,
+                    "urltype": "gcp",
+                    "url": "gs://sra-pub-run-4/SRR13192647/SRR13192647.1"
+                }
+            ],
+            "ncbi": []
+        }
+    },
+    "SRR13192648": {
+        "accession": "SRR13192648",
+        "experiment": "SRX9627038",
+        "study": "SRP295673",
+        "sample": "SRS7828007",
+        "title": "NextSeq 500 paired end sequencing; GSM4955362: 1dpi_sample1; Mus musculus; RNA-Seq",
+        "attributes": {
+            "assembly": "GRCm38",
+            "ENA-FIRST-PUBLIC": "2021-03-02",
+            "ENA-LAST-UPDATE": "2021-06-08"
+        },
+        "files": {
+            "ftp": [
+                {
+                    "accession": "SRR13192648",
+                    "filename": "1dpi_sample1_possorted_genome_bam.bam.1",
+                    "filetype": "bam",
+                    "filesize": 38174037667,
+                    "filenumber": 1,
+                    "md5": "f65fdfa948a9f92b7bd5815898cf002f",
+                    "urltype": "ftp",
+                    "url": "ftp://ftp.sra.ebi.ac.uk/vol1/run/SRR131/SRR13192648/1dpi_sample1_possorted_genome_bam.bam.1"
+                }
+            ],
+            "aws": [
+                {
+                    "accession": "SRR13192648",
+                    "filename": "1dpi_sample1_possorted_genome_bam.bam.1",
+                    "filetype": "bam",
+                    "filesize": null,
+                    "filenumber": 1,
+                    "md5": null,
+                    "urltype": "aws",
+                    "url": "https://sra-pub-src-2.s3.amazonaws.com/SRR13192648/1dpi_sample1_possorted_genome_bam.bam.1"
+                },
+                {
+                    "accession": "SRR13192648",
+                    "filename": "SRR13192648",
+                    "filetype": "sra",
+                    "filesize": null,
+                    "filenumber": 1,
+                    "md5": null,
+                    "urltype": "aws",
+                    "url": "https://sra-pub-run-odp.s3.amazonaws.com/sra/SRR13192648/SRR13192648"
+                }
+            ],
+            "gcp": [
+                {
+                    "accession": "SRR13192648",
+                    "filename": "1dpi_sample1_possorted_genome_bam.bam.1",
+                    "filetype": "bam",
+                    "filesize": null,
+                    "filenumber": 1,
+                    "md5": null,
+                    "urltype": "gcp",
+                    "url": "gs://sra-pub-src-2/SRR13192648/1dpi_sample1_possorted_genome_bam.bam.1"
+                },
+                {
+                    "accession": "SRR13192648",
+                    "filename": "SRR13192648.1",
+                    "filetype": "sra",
+                    "filesize": null,
+                    "filenumber": 1,
+                    "md5": null,
+                    "urltype": "gcp",
+                    "url": "gs://sra-pub-run-1/SRR13192648/SRR13192648.1"
+                }
+            ],
+            "ncbi": []
+        }
+    },
+    "SRR13192649": {
+        "accession": "SRR13192649",
+        "experiment": "SRX9627039",
+        "study": "SRP295673",
+        "sample": "SRS7828008",
+        "title": "NextSeq 500 paired end sequencing; GSM4955363: 1dpi_sample2; Mus musculus; RNA-Seq",
+        "attributes": {
+            "assembly": "GRCm38",
+            "ENA-FIRST-PUBLIC": "2021-03-02",
+            "ENA-LAST-UPDATE": "2021-06-08"
+        },
+        "files": {
+            "ftp": [
+                {
+                    "accession": "SRR13192649",
+                    "filename": "1dpi_sample2_possorted_genome_bam.bam.1",
+                    "filetype": "bam",
+                    "filesize": 35822251195,
+                    "filenumber": 1,
+                    "md5": "1b3cc7c58e87408466dec0549bf2eb5f",
+                    "urltype": "ftp",
+                    "url": "ftp://ftp.sra.ebi.ac.uk/vol1/run/SRR131/SRR13192649/1dpi_sample2_possorted_genome_bam.bam.1"
+                }
+            ],
+            "aws": [
+                {
+                    "accession": "SRR13192649",
+                    "filename": "1dpi_sample2_possorted_genome_bam.bam.1",
+                    "filetype": "bam",
+                    "filesize": null,
+                    "filenumber": 1,
+                    "md5": null,
+                    "urltype": "aws",
+                    "url": "https://sra-pub-src-2.s3.amazonaws.com/SRR13192649/1dpi_sample2_possorted_genome_bam.bam.1"
+                },
+                {
+                    "accession": "SRR13192649",
+                    "filename": "SRR13192649",
+                    "filetype": "sra",
+                    "filesize": null,
+                    "filenumber": 1,
+                    "md5": null,
+                    "urltype": "aws",
+                    "url": "https://sra-pub-run-odp.s3.amazonaws.com/sra/SRR13192649/SRR13192649"
+                }
+            ],
+            "gcp": [
+                {
+                    "accession": "SRR13192649",
+                    "filename": "1dpi_sample2_possorted_genome_bam.bam.1",
+                    "filetype": "bam",
+                    "filesize": null,
+                    "filenumber": 1,
+                    "md5": null,
+                    "urltype": "gcp",
+                    "url": "gs://sra-pub-src-2/SRR13192649/1dpi_sample2_possorted_genome_bam.bam.1"
+                },
+                {
+                    "accession": "SRR13192649",
+                    "filename": "SRR13192649.1",
+                    "filetype": "sra",
+                    "filesize": null,
+                    "filenumber": 1,
+                    "md5": null,
+                    "urltype": "gcp",
+                    "url": "gs://sra-pub-run-13/SRR13192649/SRR13192649.1"
+                }
+            ],
+            "ncbi": []
+        }
+    },
+    "SRR13192650": {
+        "accession": "SRR13192650",
+        "experiment": "SRX9627040",
+        "study": "SRP295673",
+        "sample": "SRS7828009",
+        "title": "NextSeq 500 paired end sequencing; GSM4955364: 1dpi_sample3; Mus musculus; RNA-Seq",
+        "attributes": {
+            "assembly": "GRCm38",
+            "ENA-FIRST-PUBLIC": "2021-03-02",
+            "ENA-LAST-UPDATE": "2021-06-08"
+        },
+        "files": {
+            "ftp": [
+                {
+                    "accession": "SRR13192650",
+                    "filename": "1dpi_sample3_possorted_genome_bam.bam.1",
+                    "filetype": "bam",
+                    "filesize": 37044451597,
+                    "filenumber": 1,
+                    "md5": "17a15f523aeb8c8de3b3d05cd70121b0",
+                    "urltype": "ftp",
+                    "url": "ftp://ftp.sra.ebi.ac.uk/vol1/run/SRR131/SRR13192650/1dpi_sample3_possorted_genome_bam.bam.1"
+                }
+            ],
+            "aws": [
+                {
+                    "accession": "SRR13192650",
+                    "filename": "1dpi_sample3_possorted_genome_bam.bam.1",
+                    "filetype": "bam",
+                    "filesize": null,
+                    "filenumber": 1,
+                    "md5": null,
+                    "urltype": "aws",
+                    "url": "https://sra-pub-src-2.s3.amazonaws.com/SRR13192650/1dpi_sample3_possorted_genome_bam.bam.1"
+                },
+                {
+                    "accession": "SRR13192650",
+                    "filename": "SRR13192650",
+                    "filetype": "sra",
+                    "filesize": null,
+                    "filenumber": 1,
+                    "md5": null,
+                    "urltype": "aws",
+                    "url": "https://sra-pub-run-odp.s3.amazonaws.com/sra/SRR13192650/SRR13192650"
+                }
+            ],
+            "gcp": [
+                {
+                    "accession": "SRR13192650",
+                    "filename": "1dpi_sample3_possorted_genome_bam.bam.1",
+                    "filetype": "bam",
+                    "filesize": null,
+                    "filenumber": 1,
+                    "md5": null,
+                    "urltype": "gcp",
+                    "url": "gs://sra-pub-src-2/SRR13192650/1dpi_sample3_possorted_genome_bam.bam.1"
+                },
+                {
+                    "accession": "SRR13192650",
+                    "filename": "SRR13192650.1",
+                    "filetype": "sra",
+                    "filesize": null,
+                    "filenumber": 1,
+                    "md5": null,
+                    "urltype": "gcp",
+                    "url": "gs://sra-pub-run-12/SRR13192650/SRR13192650.1"
+                }
+            ],
+            "ncbi": []
+        }
+    },
+    "SRR13192651": {
+        "accession": "SRR13192651",
+        "experiment": "SRX9627041",
+        "study": "SRP295673",
+        "sample": "SRS7828010",
+        "title": "NextSeq 500 paired end sequencing; GSM4955365: 3dpi_sample1; Mus musculus; RNA-Seq",
+        "attributes": {
+            "assembly": "GRCm38",
+            "ENA-FIRST-PUBLIC": "2021-03-02",
+            "ENA-LAST-UPDATE": "2021-06-08"
+        },
+        "files": {
+            "ftp": [
+                {
+                    "accession": "SRR13192651",
+                    "filename": "3dpi_sample1_possorted_genome_bam.bam.1",
+                    "filetype": "bam",
+                    "filesize": 45984406462,
+                    "filenumber": 1,
+                    "md5": "a410e56fc71af4553fe5b0fbec7627fa",
+                    "urltype": "ftp",
+                    "url": "ftp://ftp.sra.ebi.ac.uk/vol1/run/SRR131/SRR13192651/3dpi_sample1_possorted_genome_bam.bam.1"
+                }
+            ],
+            "aws": [
+                {
+                    "accession": "SRR13192651",
+                    "filename": "3dpi_sample1_possorted_genome_bam.bam.1",
+                    "filetype": "bam",
+                    "filesize": null,
+                    "filenumber": 1,
+                    "md5": null,
+                    "urltype": "aws",
+                    "url": "https://sra-pub-src-2.s3.amazonaws.com/SRR13192651/3dpi_sample1_possorted_genome_bam.bam.1"
+                },
+                {
+                    "accession": "SRR13192651",
+                    "filename": "SRR13192651",
+                    "filetype": "sra",
+                    "filesize": null,
+                    "filenumber": 1,
+                    "md5": null,
+                    "urltype": "aws",
+                    "url": "https://sra-pub-run-odp.s3.amazonaws.com/sra/SRR13192651/SRR13192651"
+                }
+            ],
+            "gcp": [
+                {
+                    "accession": "SRR13192651",
+                    "filename": "3dpi_sample1_possorted_genome_bam.bam.1",
+                    "filetype": "bam",
+                    "filesize": null,
+                    "filenumber": 1,
+                    "md5": null,
+                    "urltype": "gcp",
+                    "url": "gs://sra-pub-src-2/SRR13192651/3dpi_sample1_possorted_genome_bam.bam.1"
+                },
+                {
+                    "accession": "SRR13192651",
+                    "filename": "SRR13192651.1",
+                    "filetype": "sra",
+                    "filesize": null,
+                    "filenumber": 1,
+                    "md5": null,
+                    "urltype": "gcp",
+                    "url": "gs://sra-pub-run-11/SRR13192651/SRR13192651.1"
+                }
+            ],
+            "ncbi": []
+        }
+    },
+    "SRR13192652": {
+        "accession": "SRR13192652",
+        "experiment": "SRX9627042",
+        "study": "SRP295673",
+        "sample": "SRS7828011",
+        "title": "NextSeq 500 paired end sequencing; GSM4955366: 3dpi_sample2; Mus musculus; RNA-Seq",
+        "attributes": {
+            "assembly": "GRCm38",
+            "ENA-FIRST-PUBLIC": "2021-03-02",
+            "ENA-LAST-UPDATE": "2021-06-08"
+        },
+        "files": {
+            "ftp": [
+                {
+                    "accession": "SRR13192652",
+                    "filename": "3dpi_sample2_possorted_genome_bam.bam.1",
+                    "filetype": "bam",
+                    "filesize": 40796096495,
+                    "filenumber": 1,
+                    "md5": "56e1a2cf6bcb9640ff12adcd678651c8",
+                    "urltype": "ftp",
+                    "url": "ftp://ftp.sra.ebi.ac.uk/vol1/run/SRR131/SRR13192652/3dpi_sample2_possorted_genome_bam.bam.1"
+                }
+            ],
+            "aws": [
+                {
+                    "accession": "SRR13192652",
+                    "filename": "3dpi_sample2_possorted_genome_bam.bam.1",
+                    "filetype": "bam",
+                    "filesize": null,
+                    "filenumber": 1,
+                    "md5": null,
+                    "urltype": "aws",
+                    "url": "https://sra-pub-src-2.s3.amazonaws.com/SRR13192652/3dpi_sample2_possorted_genome_bam.bam.1"
+                },
+                {
+                    "accession": "SRR13192652",
+                    "filename": "SRR13192652",
+                    "filetype": "sra",
+                    "filesize": null,
+                    "filenumber": 1,
+                    "md5": null,
+                    "urltype": "aws",
+                    "url": "https://sra-pub-run-odp.s3.amazonaws.com/sra/SRR13192652/SRR13192652"
+                }
+            ],
+            "gcp": [
+                {
+                    "accession": "SRR13192652",
+                    "filename": "3dpi_sample2_possorted_genome_bam.bam.1",
+                    "filetype": "bam",
+                    "filesize": null,
+                    "filenumber": 1,
+                    "md5": null,
+                    "urltype": "gcp",
+                    "url": "gs://sra-pub-src-2/SRR13192652/3dpi_sample2_possorted_genome_bam.bam.1"
+                },
+                {
+                    "accession": "SRR13192652",
+                    "filename": "SRR13192652.1",
+                    "filetype": "sra",
+                    "filesize": null,
+                    "filenumber": 1,
+                    "md5": null,
+                    "urltype": "gcp",
+                    "url": "gs://sra-pub-run-10/SRR13192652/SRR13192652.1"
+                }
+            ],
+            "ncbi": []
+        }
+    },
+    "SRR13192653": {
+        "accession": "SRR13192653",
+        "experiment": "SRX9627043",
+        "study": "SRP295673",
+        "sample": "SRS7828012",
+        "title": "NextSeq 500 paired end sequencing; GSM4955367: 7dpi_sample1; Mus musculus; RNA-Seq",
+        "attributes": {
+            "assembly": "GRCm38",
+            "ENA-FIRST-PUBLIC": "2021-03-02",
+            "ENA-LAST-UPDATE": "2021-06-08"
+        },
+        "files": {
+            "ftp": [
+                {
+                    "accession": "SRR13192653",
+                    "filename": "7dpi_sample1_possorted_genome_bam.bam.1",
+                    "filetype": "bam",
+                    "filesize": 39906364607,
+                    "filenumber": 1,
+                    "md5": "a751f673aafe725f1f3972bfaf650121",
+                    "urltype": "ftp",
+                    "url": "ftp://ftp.sra.ebi.ac.uk/vol1/run/SRR131/SRR13192653/7dpi_sample1_possorted_genome_bam.bam.1"
+                }
+            ],
+            "aws": [
+                {
+                    "accession": "SRR13192653",
+                    "filename": "7dpi_sample1_possorted_genome_bam.bam.1",
+                    "filetype": "bam",
+                    "filesize": null,
+                    "filenumber": 1,
+                    "md5": null,
+                    "urltype": "aws",
+                    "url": "https://sra-pub-src-1.s3.amazonaws.com/SRR13192653/7dpi_sample1_possorted_genome_bam.bam.1"
+                },
+                {
+                    "accession": "SRR13192653",
+                    "filename": "SRR13192653",
+                    "filetype": "sra",
+                    "filesize": null,
+                    "filenumber": 1,
+                    "md5": null,
+                    "urltype": "aws",
+                    "url": "https://sra-pub-run-odp.s3.amazonaws.com/sra/SRR13192653/SRR13192653"
+                }
+            ],
+            "gcp": [
+                {
+                    "accession": "SRR13192653",
+                    "filename": "7dpi_sample1_possorted_genome_bam.bam.1",
+                    "filetype": "bam",
+                    "filesize": null,
+                    "filenumber": 1,
+                    "md5": null,
+                    "urltype": "gcp",
+                    "url": "gs://sra-pub-src-1/SRR13192653/7dpi_sample1_possorted_genome_bam.bam.1"
+                },
+                {
+                    "accession": "SRR13192653",
+                    "filename": "SRR13192653.1",
+                    "filetype": "sra",
+                    "filesize": null,
+                    "filenumber": 1,
+                    "md5": null,
+                    "urltype": "gcp",
+                    "url": "gs://sra-pub-run-4/SRR13192653/SRR13192653.1"
+                }
+            ],
+            "ncbi": []
+        }
+    },
+    "SRR13192654": {
+        "accession": "SRR13192654",
+        "experiment": "SRX9627044",
+        "study": "SRP295673",
+        "sample": "SRS7828013",
+        "title": "NextSeq 500 paired end sequencing; GSM4955368: 7dpi_sample2; Mus musculus; RNA-Seq",
+        "attributes": {
+            "assembly": "GRCm38",
+            "ENA-FIRST-PUBLIC": "2021-03-02",
+            "ENA-LAST-UPDATE": "2021-06-08"
+        },
+        "files": {
+            "ftp": [
+                {
+                    "accession": "SRR13192654",
+                    "filename": "7dpi_sample2_possorted_genome_bam.bam.1",
+                    "filetype": "bam",
+                    "filesize": 41142888099,
+                    "filenumber": 1,
+                    "md5": "362eb5c87bcc6018eb226bd962aa85f3",
+                    "urltype": "ftp",
+                    "url": "ftp://ftp.sra.ebi.ac.uk/vol1/run/SRR131/SRR13192654/7dpi_sample2_possorted_genome_bam.bam.1"
+                }
+            ],
+            "aws": [
+                {
+                    "accession": "SRR13192654",
+                    "filename": "7dpi_sample2_possorted_genome_bam.bam.1",
+                    "filetype": "bam",
+                    "filesize": null,
+                    "filenumber": 1,
+                    "md5": null,
+                    "urltype": "aws",
+                    "url": "https://sra-pub-src-1.s3.amazonaws.com/SRR13192654/7dpi_sample2_possorted_genome_bam.bam.1"
+                },
+                {
+                    "accession": "SRR13192654",
+                    "filename": "SRR13192654",
+                    "filetype": "sra",
+                    "filesize": null,
+                    "filenumber": 1,
+                    "md5": null,
+                    "urltype": "aws",
+                    "url": "https://sra-pub-run-odp.s3.amazonaws.com/sra/SRR13192654/SRR13192654"
+                }
+            ],
+            "gcp": [
+                {
+                    "accession": "SRR13192654",
+                    "filename": "7dpi_sample2_possorted_genome_bam.bam.1",
+                    "filetype": "bam",
+                    "filesize": null,
+                    "filenumber": 1,
+                    "md5": null,
+                    "urltype": "gcp",
+                    "url": "gs://sra-pub-src-1/SRR13192654/7dpi_sample2_possorted_genome_bam.bam.1"
+                },
+                {
+                    "accession": "SRR13192654",
+                    "filename": "SRR13192654.1",
+                    "filetype": "sra",
+                    "filesize": null,
+                    "filenumber": 1,
+                    "md5": null,
+                    "urltype": "gcp",
+                    "url": "gs://sra-pub-run-7/SRR13192654/SRR13192654.1"
+                }
+            ],
+            "ncbi": []
+        }
+    }
+}
