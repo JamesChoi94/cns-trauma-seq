@@ -70,6 +70,7 @@ I will eventually need to reorganize the `json` output into a batch process comm
 links <- jsonlite::fromJSON(txt = 'ffq-output.json')
 links <- lapply(links, function(x) x[['files']][['ftp']])
 links <- sapply(links, function(x) x$url[x$filetype == 'bam'][1])
-writeLines(text = links, con = 'milich2021-ftp-urls.txt')
+tmp.names <- sapply(strsplit(links, '/'), function(x) rev(x)[])
+writeLines(text = paste0('curl -L ', links, ' -o ', tmp.names), con = 'milich2021-ftp-urls.sh')
 ```
 
