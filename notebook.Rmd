@@ -26,7 +26,7 @@ Single cell sequencing resource of data from central nervous system traumatic in
 
 Workflow for this study and single cell model were separated into two tasks where the first task was to preprocess sequencing data (e.g. `.fastq`/`.fq` files) into gene-count numeric matrices and the second task was to perform cluster analysis and differential expression tests. 
 
-One of the first issues is that I only have access to `.bam` and not `.fastq` files for certain samples. 10X Genomics has a software tool `bamtofastq` that converts 10X Genomics `.bam` files back into `.fastq` so that they can be used as input for analysis re-runs. I specifically need the raw `.bam` files, and not the files decompressed from `.sra`, due to [a known issue](https://support.10xgenomics.com/docs/bamtofastq#issues).
+One of the first issues is that I only have access to `.bam` and not `.fastq` files for certain samples. 10X Genomics has a software tool `bamtofastq` that converts 10X Genomics `.bam` files back into `.fastq` so that they can be used as input for analysis re-runs. I specifically need the raw `.bam` files, and not the files decompressed from `.sra`, due to [a known issue](https://support.10xgenomics.com/docs/bamtofastq#issues). To use these tools I'll need to use the Pegasus cluster. 
 
 I requested the following data from our SRA submission (Milich2021):
 
@@ -42,10 +42,10 @@ The `.sra` and `.bam` file format options were found here.
 
 So I needed a method to take these accessions and get the full list of download links. Using WSL2 on a Windows machine, I set up a `conda` environment named `cns-trauma-seq`. I installed the tool [`ffq` developed by Pachter Lab at UC Berkeley](https://github.com/pachterlab/ffq) which allows me to access SRA metadata using only accession codes. 
 
-I confirmed that `ffq` is working properly using SRR13192645.
+I confirmed that `ffq` is working properly using SRR13192645. The info I needed was under `"{"SRR13192645":"files":{ftp:["url":...]}}`. 
 
 ```{}
-ffq SRR13192645 | head
+>> ffq SRR13192645 | head
 [2022-08-29 15:34:27,261]    INFO Parsing run SRR13192645
 {
     "SRR13192645": {
@@ -57,4 +57,19 @@ ffq SRR13192645 | head
         "attributes": {
             "assembly": "GRCm38",
             "ENA-FIRST-PUBLIC": "2021-03-02",
+            
+>> ffq -o ffq-output.json SRR13192645 SRR13192646 SRR13192647 SRR13192648 SRR13192649 SRR13192650 SRR13192651 SRR13192652 SRR13192653 SRR13192654
 ```
+
+
+I will eventually need to reorganize the `json` output into a batch process command. I could do this programmatically or by hand but first I need to download a test dataset. 
+
+`ssh` to Pegasus and tested `wget https://sra-pub-src-2.s3.amazonaws.com/SRR13192645/uninj_sample1_possorted_genome_bam.bam.1`, which was ETA of 20 minutes. For all 10 samples, that's just over 3 hours. First I parse `ffq-output.json` to generate a `txt` file of just links.
+
+```{r }
+links <- jsonlite::fromJSON(txt = 'ffq-output.json')
+links <- lapply(links, function(x) x[['files']][['ftp']])
+links <- sapply(links, function(x) x$url[x$filetype == 'bam'][1])
+writeLines(text = links, con = 'milich2021-ftp-urls.txt')
+```
+
