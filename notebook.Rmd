@@ -3,10 +3,10 @@ title: "cns-trauma-seq notebook"
 author: "James Choi"
 date: 'Last compiled: `r Sys.Date()`'
 output:
-  html_document:
-    keep_md: yes
   pdf_document: default
   word_document: default
+  html_document:
+    keep_md: yes
 editor_options:
   chunk_output_type: console
 ---
@@ -121,5 +121,25 @@ bamtofastq v1.3.1
 
     Older 10x pipelines require one of the arguments listed below to indicate
     which pipeline created the BAM.
+    
+$ export PATH=/nethome/jsc228/cellranger-6.0.2/lib/bin/bamtofastq:$PATH
+
+$ /nethome/jsc228/cellranger-6.0.2/lib/bin/bamtofastq --traceback data/bams/3dpi_sample1_possorted_genome_bam.bam.1 test
+bamtofastq v1.3.1
+Args { arg_bam: "data/bams/3dpi_sample1_possorted_genome_bam.bam.1", arg_output_path: "test", flag_nthreads: 4, flag_locus: None, flag_bx_list: None, flag_reads_per_fastq: 50000000, flag_gemcode: false, flag_lr20: false, flag_cr11: false, flag_traceback: true }
+entry
 ```
+
+It looks like `bamtofastq` is at least starting without installation-related errors. Depending on the resulting `fastq` files, I will have to put together a batch script for Pegasus. On second thought, I will just test the batch run. Script located in newly maked dir `lsf/pegasus-bsub_*`. Run started at 4:10pm. Finished at least a few minutes before 6:00pm. Next wrote a short lsf script to run `cellranger count` on the newly generated `.fastq.gz` files. 
+
+The following worked the first time I ran it:
+
+```{}
+$ cellranger count \
+  --id=Lindsay-Milich-14 \
+  --transcriptome=/scratch/projects/lemmon/jsc228/cns-trauma-seq/refdata-gex-mm10-2020-A \
+  --fastqs=/scratch/projects/lemmon/jsc228/cns-trauma-seq/data/bamtofastq/3dpi_sample1_possorted_genome_bam.bam.1/Lindsay-Milich-14_MissingLibrary_1_HV5CFBGX7
+```
+
+There are other options available for `cellranger count` but right now I'm too lazy. I'm going to hope that the develops took care of any info leaks. Batch job script `lsf/pegasus-bsub_milich2021-cellranger-count.sh`. For this job script, I submitted to the `bigmem` queue and I derived a working set of job resource request parameters.
 
