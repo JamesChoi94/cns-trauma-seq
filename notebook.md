@@ -1,7 +1,7 @@
 ---
 title: "cns-trauma-seq notebook"
 author: "James Choi"
-date: 'Last compiled: `r Sys.Date()`'
+date: 'Last compiled: 2022-08-31'
 output:
   html_document:
     keep_md: yes
@@ -11,10 +11,7 @@ editor_options:
   chunk_output_type: console
 ---
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(warning=FALSE, message=FALSE, fig.align='center', tidy.opts=list(width.cutoff=80), tidy=TRUE, results = 'hold')
-knitr::opts_knit$set(root.dir = 'D:/cns-trauma-seq/')
-```
+
 
 
 ## About
@@ -66,13 +63,15 @@ I will eventually need to reorganize the `json` output into a batch process comm
 
 `ssh` to Pegasus and tested `wget https://sra-pub-src-2.s3.amazonaws.com/SRR13192645/uninj_sample1_possorted_genome_bam.bam.1`, which was ETA of 20 minutes. For all 10 samples, that's just over 3 hours. First I parse `ffq-output.json` to generate a `txt` file of just links.
 
-```{r }
-links <- jsonlite::fromJSON(txt = 'ffq-output.json')
-links <- lapply(links, function(x) x[['files']][['ftp']])
-links <- sapply(links, function(x) x$url[x$filetype == 'bam'][1])
-tmp.names <- sapply(strsplit(links, '/'), function(x) rev(x)[])
-writeLines(text = links, con = 'milich2021-ftp-urls.txt')
-# writeLines(text = paste0('curl -L ', links, ' -o ', tmp.names), con = 'milich2021-ftp-urls.txt')
+
+```r
+links <- jsonlite::fromJSON(txt = "ffq-output.json")
+links <- lapply(links, function(x) x[["files"]][["ftp"]])
+links <- sapply(links, function(x) x$url[x$filetype == "bam"][1])
+tmp.names <- sapply(strsplit(links, "/"), function(x) rev(x)[])
+writeLines(text = links, con = "milich2021-ftp-urls.txt")
+# writeLines(text = paste0('curl -L ', links, ' -o ', tmp.names), con =
+# 'milich2021-ftp-urls.txt')
 ```
 
 
