@@ -1,12 +1,12 @@
 ---
 title: "cns-trauma-seq notebook"
 author: "James Choi"
-date: 'Last compiled: 2022-08-31'
+date: 'Last compiled: 2022-09-06'
 output:
   html_document:
     keep_md: yes
-  pdf_document: default
   word_document: default
+  pdf_document: default
 editor_options:
   chunk_output_type: console
 ---
@@ -141,4 +141,99 @@ $ cellranger count \
 ```
 
 There are other options available for `cellranger count` but right now I'm too lazy. I'm going to hope that the develops took care of any info leaks. Batch job script `lsf/pegasus-bsub_milich2021-cellranger-count.sh`. For this job script, I submitted to the `bigmem` queue and I derived a working set of job resource request parameters.
+
+
+## 2022-09-01
+
+`cellranger count` ran successfully for `3dpi_sample1_possorted_genome_bam.bam.1` but not for `3dpi_sample1_possorted_genome_bam.bam.2`. No `outs/` directory was made and I got the following error message: 
+
+```
+2022-09-02 13:46:27 [runtime] (failed)          ID.Lindsay-Milich-3.SC_RNA_COUNTER_CS.SC_MULTI_CORE.MULTI_GEM_WELL_PROCESSOR.COUNT_GEM_WELL_PROCESSOR._BASIC_SC_RNA_COUNTER._MATRIX_COMPUTER.MAKE_SHARD
+
+[error] Pipestance failed. Error log at:
+Lindsay-Milich-3/SC_RNA_COUNTER_CS/SC_MULTI_CORE/MULTI_GEM_WELL_PROCESSOR/COUNT_GEM_WELL_PROCESSOR/_BASIC_SC_RNA_COUNTER/_MATRIX_COMPUTER/MAKE_SHARD/fork0/chnk0-u5319124163/_errors
+
+Log message:
+IO error in FASTQ file '"/scratch/projects/lemmon/jsc228/cns-trauma-seq/data/bamtofastq/3dpi_sample2_possorted_genome_bam.bam.1/2019-05-22-Lindsay-Milich-3_0_1_HHTVCBGXB/bamtofastq_S1_L001_I1_001.fastq.gz"', line: 5412024: unexpected end of file
+
+Waiting 6 seconds for UI to do final refresh.
+```
+
+There might be an issue with the `bam` file. I checked the file with the following and got a similar message:
+
+```
+$ gunzip bamtofastq_S1_L001_I1_001.fastq.gz
+```
+
+So I will run `bamtofastq` a second time to see if the output changes. 
+
+While that is running, I will test whether the newly aligned 3dpi-sample1 will show any batch effects with the previous 3dpi-sample1.
+
+
+
+```r
+BiocManager::install("sparseMatrixStats")
+BiocManager::install("DropletUtils")
+library(Seurat)
+library(ggplot2)
+library(dplyr)
+
+previous <- Read10X_h5(filename = "../MiamiProject/sci_scRNAseq/data/raw_feature_bc_matrix/raw_feature_bc_matrix_3dpi_sample2.h5")
+current <- Read10X_h5(filename = "data/raw-feature-barcode-matrices/3dpi_sample1-2022_raw_feature_bc_matrix.h5")
+
+dim(previous)
+dim(current)
+summary(sparseMatrixStats::rowSums2(previous))
+summary(sparseMatrixStats::rowSums2(current))
+summary(sparseMatrixStats::colSums2(previous))
+summary(sparseMatrixStats::colSums2(current))
+```
+
+The two matrices have different dimensions- current matrix has more genes (rows) and fewer droplets (columns). 
+
+
+```r
+ranks_previous <- DropletUtils::barcodeRanks(m = previous, lower = 200, fit.bounds = c(500,
+    30000))
+ranks_current <- DropletUtils::barcodeRanks(m = current, lower = 200, fit.bounds = c(500,
+    30000))
+drops_previous <- DropletUtils::emptyDrops(m = previous, retain = ranks_previous@metadata$knee,
+    lower = ranks_previous@metadata$inflection, BPPARAM = BiocParallel::SnowParam(workers = 2,
+        type = "SOCK"))
+drops_current <- DropletUtils::emptyDrops(m = current, retain = ranks_current@metadata$knee,
+    lower = ranks_current@metadata$inflection, BPPARAM = BiocParallel::SnowParam(workers = 2,
+        type = "SOCK"))
+```
+
+
+## 2022-09-06
+
+Picking up from last time.
+
+
+```r
+library(Seurat)
+library(ggplot2)
+library(dplyr)
+
+previous <- Read10X_h5(filename = "../MiamiProject/sci_scRNAseq/data/raw_feature_bc_matrix/raw_feature_bc_matrix_3dpi_sample2.h5")
+current <- Read10X_h5(filename = "data/raw-feature-barcode-matrices/3dpi_sample1-2022_raw_feature_bc_matrix.h5")
+
+# Since v6.0 of cellranger by 10X Genomics, GEM-barcodes with zero total UMIs
+# are automatically removed from the count matrix before being written out to
+# h5.
+ranks_previous <- DropletUtils::barcodeRanks(m = previous, lower = 200, fit.bounds = c(500,
+    30000))
+ranks_current <- DropletUtils::barcodeRanks(m = current, lower = 200, fit.bounds = c(500,
+    30000))
+dim(ranks_previous)
+dim(ranks_current)
+return(c("success"))
+drops_previous <- DropletUtils::emptyDrops(m = previous, retain = ranks_previous@metadata$knee,
+    lower = ranks_previous@metadata$inflection, BPPARAM = BiocParallel::SnowParam(workers = 2,
+        type = "SOCK"))
+drops_current <- DropletUtils::emptyDrops(m = current, retain = ranks_current@metadata$knee,
+    lower = ranks_current@metadata$inflection, BPPARAM = BiocParallel::SnowParam(workers = 2,
+        type = "SOCK"))
+```
 

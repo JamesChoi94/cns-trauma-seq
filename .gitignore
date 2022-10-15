@@ -4,7 +4,17 @@
 .RData
 .Ruserdata
 
+
+data/**/*.h5
+data/**/*.cloupe
+**/*.xlsx
+data/**/*.jpg
+data/**/*.html
+data/**/*.tiff
+**/*.rds
+
 notebook.docx
 notebook.pdf
 renv/**
+results/**
 .Rproj.user

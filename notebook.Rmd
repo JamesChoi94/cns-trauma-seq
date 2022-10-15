@@ -3,16 +3,16 @@ title: "cns-trauma-seq notebook"
 author: "James Choi"
 date: 'Last compiled: `r Sys.Date()`'
 output:
-  pdf_document: default
-  word_document: default
   html_document:
     keep_md: yes
+  word_document: default
+  pdf_document: default
 editor_options:
   chunk_output_type: console
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(warning=FALSE, message=FALSE, fig.align='center', tidy.opts=list(width.cutoff=80), tidy=TRUE, results = 'hold')
+knitr::opts_chunk$set(warning=FALSE, message=FALSE, fig.align='center', tidy.opts=list(width.cutoff=80), tidy=TRUE, results = 'hold', eval = FALSE)
 knitr::opts_knit$set(root.dir = 'D:/cns-trauma-seq/')
 ```
 
@@ -66,7 +66,7 @@ I will eventually need to reorganize the `json` output into a batch process comm
 
 `ssh` to Pegasus and tested `wget https://sra-pub-src-2.s3.amazonaws.com/SRR13192645/uninj_sample1_possorted_genome_bam.bam.1`, which was ETA of 20 minutes. For all 10 samples, that's just over 3 hours. First I parse `ffq-output.json` to generate a `txt` file of just links.
 
-```{r }
+```{r eval=TRUE}
 links <- jsonlite::fromJSON(txt = 'ffq-output.json')
 links <- lapply(links, function(x) x[['files']][['ftp']])
 links <- sapply(links, function(x) x$url[x$filetype == 'bam'][1])
@@ -142,4 +142,239 @@ $ cellranger count \
 ```
 
 There are other options available for `cellranger count` but right now I'm too lazy. I'm going to hope that the develops took care of any info leaks. Batch job script `lsf/pegasus-bsub_milich2021-cellranger-count.sh`. For this job script, I submitted to the `bigmem` queue and I derived a working set of job resource request parameters.
+
+
+## 2022-09-01
+
+`cellranger count` ran successfully for `3dpi_sample1_possorted_genome_bam.bam.1` but not for `3dpi_sample1_possorted_genome_bam.bam.2`. No `outs/` directory was made and I got the following error message: 
+
+```
+2022-09-02 13:46:27 [runtime] (failed)          ID.Lindsay-Milich-3.SC_RNA_COUNTER_CS.SC_MULTI_CORE.MULTI_GEM_WELL_PROCESSOR.COUNT_GEM_WELL_PROCESSOR._BASIC_SC_RNA_COUNTER._MATRIX_COMPUTER.MAKE_SHARD
+
+[error] Pipestance failed. Error log at:
+Lindsay-Milich-3/SC_RNA_COUNTER_CS/SC_MULTI_CORE/MULTI_GEM_WELL_PROCESSOR/COUNT_GEM_WELL_PROCESSOR/_BASIC_SC_RNA_COUNTER/_MATRIX_COMPUTER/MAKE_SHARD/fork0/chnk0-u5319124163/_errors
+
+Log message:
+IO error in FASTQ file '"/scratch/projects/lemmon/jsc228/cns-trauma-seq/data/bamtofastq/3dpi_sample2_possorted_genome_bam.bam.1/2019-05-22-Lindsay-Milich-3_0_1_HHTVCBGXB/bamtofastq_S1_L001_I1_001.fastq.gz"', line: 5412024: unexpected end of file
+
+Waiting 6 seconds for UI to do final refresh.
+```
+
+There might be an issue with the `bam` file. I checked the file with the following and got a similar message:
+
+```
+$ gunzip bamtofastq_S1_L001_I1_001.fastq.gz
+```
+
+So I will run `bamtofastq` a second time to see if the output changes. 
+
+While that is running, I will test whether the newly aligned 3dpi-sample1 will show any batch effects with the previous 3dpi-sample1.
+
+
+```{r eval=FALSE}
+BiocManager::install('sparseMatrixStats')
+BiocManager::install('DropletUtils')
+library(Seurat)
+library(ggplot2)
+library(dplyr)
+
+previous <- Read10X_h5(filename = '../MiamiProject/sci_scRNAseq/data/raw_feature_bc_matrix/raw_feature_bc_matrix_3dpi_sample2.h5')
+current <- Read10X_h5(filename = 'data/raw-feature-barcode-matrices/3dpi_sample1-2022_raw_feature_bc_matrix.h5')
+
+dim(previous)
+dim(current)
+summary(sparseMatrixStats::rowSums2(previous))
+summary(sparseMatrixStats::rowSums2(current))
+summary(sparseMatrixStats::colSums2(previous))
+summary(sparseMatrixStats::colSums2(current))
+```
+
+The two matrices have different dimensions - current matrix has more genes (rows) and fewer droplets (columns). Additionally, more UMIs per cell in the current sample than previous sample. This might be due to [reference genome changes as mentioned in 10X Genomics release notes:](https://support.10xgenomics.com/single-cell-gene-expression/software/pipelines/4.0/release-notes)
+
+> Recommended reference packages for human and mouse have been updated from version 3.0.0 to 2020-A: 
+
+> Mapping rates and gene/UMI sensitivity are increased due to more comprehensive annotations and improved manual curation of genes:
+
+Compare `cellranger` output of sequencing metrics:
+
+Aligned by me (2022):
+
+Number of Reads	526,850,375
+Number of Short Reads Skipped	0
+Valid Barcodes	98.0%
+Valid UMIs	99.9%
+Sequencing Saturation	74.1%
+Q30 Bases in Barcode	96.4%
+Q30 Bases in RNA Read	81.2%
+Q30 Bases in UMI	95.8%
+Reads Mapped to Genome	89.0%
+Reads Mapped Confidently to Genome	86.2%
+Reads Mapped Confidently to Intergenic Regions	1.9%
+Reads Mapped Confidently to Intronic Regions	9.2%
+Reads Mapped Confidently to Exonic Regions	75.2%
+Reads Mapped Confidently to Transcriptome	73.2%
+Reads Mapped Antisense to Gene	1.0%
+
+
+Aligned previously by core (2019):
+
+Number of Reads	526,850,375
+Valid Barcodes	98.0%
+Sequencing Saturation	73.9%
+Q30 Bases in Barcode	96.4%
+Q30 Bases in RNA Read	81.2%
+Q30 Bases in Sample Index	96.6%
+Q30 Bases in UMI	95.8%
+Reads Mapped to Genome	88.5%
+Reads Mapped Confidently to Genome	84.4%
+Reads Mapped Confidently to Intergenic Regions	2.7%
+Reads Mapped Confidently to Intronic Regions	9.5%
+Reads Mapped Confidently to Exonic Regions	72.3%
+Reads Mapped Confidently to Transcriptome	69.9%
+Reads Mapped Antisense to Gene	1.0%
+
+
+The sequencing...
+
+```{r eval=FALSE}
+ranks_previous <- DropletUtils::barcodeRanks(
+  m = previous,
+  lower = 200,
+  fit.bounds = c(500, 3e4)
+)
+ranks_current <- DropletUtils::barcodeRanks(
+  m = current,
+  lower = 200,
+  fit.bounds = c(500, 3e4)
+)
+drops_previous <- DropletUtils::emptyDrops(
+  m = previous,
+  retain = ranks_previous@metadata$knee,
+  lower = ranks_previous@metadata$inflection,
+  BPPARAM = BiocParallel::SnowParam(workers = 1, type = 'SOCK')
+)
+drops_current <- DropletUtils::emptyDrops(
+  m = current,
+  retain = ranks_current@metadata$knee,
+  lower = ranks_current@metadata$inflection,
+  BPPARAM = BiocParallel::SnowParam(workers = 1, type = 'SOCK')
+)
+```
+
+
+## 2022-09-06
+
+Picking up from last time. I wrote a short script to compare the `emptyDrops` outputs which is important for determining cells sequenced but also for understanding how the additional counts per droplet (since we observed that the average UMI/cell has increased)
+
+```{r, file='scripts/quality-control-data-preprocessing.R', eval=FALSE}
+library(Seurat)
+library(ggplot2)
+library(dplyr)
+
+dir.create(path = 'results/quality-control-data-processing/')
+dir.create(path = 'results/quality-control-data-processing/emptyDrops/')
+
+previous <- Read10X_h5(filename = '../MiamiProject/sci_scRNAseq/data/raw_feature_bc_matrix/raw_feature_bc_matrix_3dpi_sample2.h5')
+current <- Read10X_h5(filename = 'data/raw-feature-barcode-matrices/3dpi_sample1-2022_raw_feature_bc_matrix.h5')
+
+# Since v6.0 of cellranger by 10X Genomics, GEM-barcodes with zero total UMIs are automatically removed from the count matrix before being written out to h5.
+
+ranks_previous <- DropletUtils::barcodeRanks(
+  m = previous,
+  lower = 200,
+  fit.bounds = c(500, 3e4)
+)
+drops_previous <- DropletUtils::emptyDrops(
+  m = previous,
+  retain = ranks_previous@metadata$knee,
+  lower = ranks_previous@metadata$inflection,
+  BPPARAM = BiocParallel::SnowParam(workers = 2, type = 'SOCK')
+)
+previous_results <- cbind(drops_previous, ranks_previous)
+rm(ranks_previous, drops_previous)
+
+ranks_current <- DropletUtils::barcodeRanks(
+  m = current,
+  lower = 200,
+  fit.bounds = c(500, 3e4)
+)
+drops_current <- DropletUtils::emptyDrops(
+  m = current,
+  retain = ranks_current@metadata$knee,
+  lower = ranks_current@metadata$inflection,
+  BPPARAM = BiocParallel::SnowParam(workers = 2, type = 'SOCK')
+)
+current_results <- cbind(drops_current, ranks_current)
+rm(ranks_current, drops_current)
+
+all_results <- list(
+  previous_results = previous_results,
+  current_results = current_results
+)
+saveRDS(all_results, file = 'results/quality-control-data-processing/emptyDrops/emptyDrops-outs_barcodeRanks-outs.rds')
+```
+
+
+## 2022-09-07
+
+Edited `quality-control-data-preprocessing.R` to run correctly.
+
+## 2022-09-09
+
+Goal today is to do side-by-side comparison of previously aligned and recently aligned 3dpi-sample1 datasets.
+
+Noticed the distributions were wildly different. Looking back through previous work, turns out `quality-control-data-preprocessing.R` had imported `3dpi_sample2` instead of `3dpi_sample1`. This was before I wrote the script below:
+
+
+```{r}
+library(Seurat)
+library(ggplot2)
+library(dplyr)
+
+dir.create(path = 'results/quality-control-data-processing/')
+
+previous <- Read10X_h5(filename = '../MiamiProject/sci_scRNAseq/data/raw_feature_bc_matrix/raw_feature_bc_matrix_3dpi_sample1.h5')
+current <- Read10X_h5(filename = 'data/raw-feature-barcode-matrices/3dpi_sample1-2022_raw_feature_bc_matrix.h5')
+all_results <- readRDS(file = 'results/quality-control-data-processing/emptyDrops/emptyDrops-outs_barcodeRanks-outs.rds')
+
+previous <- previous[, which(all_results$previous_results$FDR < 0.05)]
+current <- current[, which(all_results$current_results$FDR < 0.05)]
+dim(current)
+dim(previous)
+
+previous <- CreateSeuratObject(counts = previous, project = 'previous')
+current <- CreateSeuratObject(counts = current, project = 'current')
+
+previous <- PercentageFeatureSet(previous, pattern = '^mt-', col.name = 'percent_mt')
+current <- PercentageFeatureSet(current, pattern = '^mt-', col.name = 'percent_mt')
+
+p <- rbind(previous@meta.data, current@meta.data) %>% 
+  reshape2::melt(id.vars = c('orig.ident')) %>% 
+  ggplot(mapping = aes(x = orig.ident, y = value)) + 
+  geom_violin(scale = 'width') + 
+  facet_wrap(. ~ variable, scales = 'free_y') +
+  theme_bw() +
+  labs(title = 'cellranger count v2.0 vs v6.1', subtitle = 'previous = Milich2019, current = Choi2022')
+ggsave(filename = 'results/quality-control-data-processing/cellranger-rerun-comparison_3dpi-sample1.tiff', plot = p, device = 'tiff', height = 3, width = 4.5, dpi = 320)
+```
+
+The violin shows us that the current version of `cellranger` has a nearly identical distribution of `nCount_RNA` and `nFeature_RNA`. However, the previous version has wider tails towards the lower values, indicating that previous data has more cells with fewer UMIs and genes. 
+
+```{r}
+merged <- merge(previous, current)
+merged <- merged %>% 
+  NormalizeData() %>% 
+  FindVariableFeatures(nfeatures = 2000) %>% 
+  ScaleData() %>% 
+  RunPCA() %>% 
+  FindNeighbors(dims = 1:10) %>% 
+  FindClusters() %>% 
+  RunUMAP(dims = 1:10)
+```
+
+
+I added to `quality-control-data-processing.R` to include the gene-level QC computations as well as provide visuals for the QC results i.e. barcode-rank graphs for the previous cell-calling done.
+
+
+## 2022-09-12
 
