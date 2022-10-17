@@ -59,6 +59,12 @@ cd /scratch/projects/lemmon/jsc228/cns-trauma-seq
 /nethome/jsc228/cellranger-6.0.2/lib/bin/bamtofastq \
   --traceback \
   --nthreads=8 \
+  data/bams/1dpi_sample3_possorted_genome_bam.bam.1 \
+  data/bamtofastq/1dpi_sample3_possorted_genome_bam.bam.1/
+
+/nethome/jsc228/cellranger-6.0.2/lib/bin/bamtofastq \
+  --traceback \
+  --nthreads=8 \
   data/bams/3dpi_sample1_possorted_genome_bam.bam.1 \
   data/bamtofastq/3dpi_sample1_possorted_genome_bam.bam.1/
 

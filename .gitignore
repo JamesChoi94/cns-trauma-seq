@@ -1,20 +1,29 @@
+# Rproject and RStudio-related files
 .Rproj.user/**
 .Rproj.user/*
 .Rhistory
 .RData
 .Ruserdata
+.Rproj.user
 
-
-data/**/*.h5
-data/**/*.cloupe
+# specific file types that are large. pipeline should utilize tabular or 
+# simple text when possible, or source/binary files when necessary.
+**/*.h5
+**/*.cloupe
 **/*.xlsx
-data/**/*.jpg
-data/**/*.html
-data/**/*.tiff
+**/*.jpg
+**/*.html
+**/*.tiff
 **/*.rds
 
+# Outputs of analyses (inferential types of things)
+results/cellranger/**
+results/quality-control-data-processing/**
+
+# machine-specifics like environments and paths
+renv/**
+
+# Lab notebook/record-keeping files for private use only
 notebook.docx
 notebook.pdf
-renv/**
-results/**
-.Rproj.user
+
