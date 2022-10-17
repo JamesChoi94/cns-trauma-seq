@@ -18,7 +18,9 @@
 export PATH=/nethome/jsc228/cellranger-6.0.2:$PATH
 
 # ! NOTE: in-run $HOME is not cns-trauma-seq/
-cd /scratch/projects/lemmon/jsc228/cns-trauma-seq/data/
+cd /scratch/projects/lemmon/jsc228/cns-trauma-seq/data
+mkdir cellranger
+cd cellranger
 
 ####################################################
 # Job
