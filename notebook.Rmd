@@ -376,5 +376,204 @@ merged <- merged %>%
 I added to `quality-control-data-processing.R` to include the gene-level QC computations as well as provide visuals for the QC results i.e. barcode-rank graphs for the previous cell-calling done.
 
 
-## 2022-09-12
+## 2022-10-17
+
+I submitted a Pegasus job on 2022-10-17 to run `bamtofastq` from `cellranger` on all of the 2021 SCI study samples.
+
+Said job:
+
+```
+#!/bin/bash
+#BSUB -J cns-trauma-seq_bamtofastq
+#BSUB -P lemmon
+#BSUB -o %J.out
+#BSUB -e %J.err
+#BSUB -W 6:00
+#BSUB -q general
+#BSUB -n 8
+#BSUB -B
+#BSUB -N
+#BSUB -u jsc228@miami.edu
+
+####################################################
+# Set directory variables and conda env
+####################################################
+
+export PATH=/nethome/jsc228/cellranger-6.0.2:$PATH
+cd /scratch/projects/lemmon/jsc228/cns-trauma-seq
+# BAM_DIR=data/bams/
+# FASTQ_DIR=data/bamtofastq/
+# SAMPLE_NAMES=$(cat milich2021-ftp-urls.txt | rev | cut -d "/" -f 1 | rev)
+# if [! -d "$BAM_PATH" ]; then mkdir "$BAM_PATH"; fi
+
+
+####################################################
+# Job
+####################################################
+
+/nethome/jsc228/cellranger-6.0.2/lib/bin/bamtofastq \
+  --traceback \
+  --nthreads=8 \
+  data/bams/uninj_sample1_possorted_genome_bam.bam.1 \
+  data/bamtofastq/uninj_sample1_possorted_genome_bam.bam.1/
+
+/nethome/jsc228/cellranger-6.0.2/lib/bin/bamtofastq \
+  --traceback \
+  --nthreads=8 \
+  data/bams/uninj_sample2_possorted_genome_bam.bam.1 \
+  data/bamtofastq/uninj_sample2_possorted_genome_bam.bam.1/
+
+/nethome/jsc228/cellranger-6.0.2/lib/bin/bamtofastq \
+  --traceback \
+  --nthreads=8 \
+  data/bams/uninj_sample3_possorted_genome_bam.bam.1 \
+  data/bamtofastq/uninj_sample3_possorted_genome_bam.bam.1/
+
+/nethome/jsc228/cellranger-6.0.2/lib/bin/bamtofastq \
+  --traceback \
+  --nthreads=8 \
+  data/bams/1dpi_sample1_possorted_genome_bam.bam.1 \
+  data/bamtofastq/1dpi_sample1_possorted_genome_bam.bam.1/
+
+/nethome/jsc228/cellranger-6.0.2/lib/bin/bamtofastq \
+  --traceback \
+  --nthreads=8 \
+  data/bams/1dpi_sample2_possorted_genome_bam.bam.1 \
+  data/bamtofastq/1dpi_sample2_possorted_genome_bam.bam.1/
+
+/nethome/jsc228/cellranger-6.0.2/lib/bin/bamtofastq \
+  --traceback \
+  --nthreads=8 \
+  data/bams/1dpi_sample3_possorted_genome_bam.bam.1 \
+  data/bamtofastq/1dpi_sample3_possorted_genome_bam.bam.1/
+
+/nethome/jsc228/cellranger-6.0.2/lib/bin/bamtofastq \
+  --traceback \
+  --nthreads=8 \
+  data/bams/3dpi_sample1_possorted_genome_bam.bam.1 \
+  data/bamtofastq/3dpi_sample1_possorted_genome_bam.bam.1/
+
+/nethome/jsc228/cellranger-6.0.2/lib/bin/bamtofastq \
+  --traceback \
+  --nthreads=8 \
+  data/bams/3dpi_sample2_possorted_genome_bam.bam.1 \
+  data/bamtofastq/3dpi_sample2_possorted_genome_bam.bam.1/
+
+/nethome/jsc228/cellranger-6.0.2/lib/bin/bamtofastq \
+  --traceback \
+  --nthreads=8 \
+  data/bams/7dpi_sample1_possorted_genome_bam.bam.1 \
+  data/bamtofastq/7dpi_sample1_possorted_genome_bam.bam.1/
+
+/nethome/jsc228/cellranger-6.0.2/lib/bin/bamtofastq \
+  --traceback \
+  --nthreads=8 \
+  data/bams/7dpi_sample2_possorted_genome_bam.bam.1 \
+  data/bamtofastq/7dpi_sample2_possorted_genome_bam.bam.1/
+
+####################################################
+# Script End
+####################################################
+```
+
+I took the easy way out and didn't bother trying to run a for-loop on the process because I'm not that well versed in bash scripting. It's only 10 samples. However, when I need to run all other samples for the larger atlas compilation, I will have to re-think this. Even if all the public samples I collect are sequenced via 10X, demultiplexing may be different depending on file type availability. `fastq`'s will hopefully be easier to align later than the `bams` I've been working with. I should upload the original `fastq` files onto GEO.
+
+I started the run at approximately 7:00pm on Friday 2022-10-14, and I received an LSF message at 12:30am Sunday 2022-10-16. The run generated `fastq`'s for (I think) 8 of 10 samples (excluding the 3dpi samples I ran previously).
+
+
+I started running `cellranger count` for all of the newly generated `fastq` files. There were no error messages related to counting, rather error messages about already existing files/directories. As such, I deleted all pegasus-generated out/err messages (i.e. `.out` and `.err` files).
+
+
+Updated script for `cellranger count`:
+
+```
+#!/bin/bash
+#BSUB -J cns-trauma-seq_cellranger-count
+#BSUB -P lemmon
+#BSUB -o %J.out
+#BSUB -e %J.err
+#BSUB -W 10:00
+#BSUB -q bigmem
+#BSUB -n 10
+#BSUB -R "rusage[mem=4096]"
+#BSUB -B
+#BSUB -N
+#BSUB -u jsc228@miami.edu
+
+####################################################
+# Set directory variables and conda env
+####################################################
+
+export PATH=/nethome/jsc228/cellranger-6.0.2:$PATH
+
+# ! NOTE: in-run $HOME is not cns-trauma-seq/
+cd /scratch/projects/lemmon/jsc228/cns-trauma-seq/data
+mkdir cellranger
+cd cellranger
+
+####################################################
+# Job
+####################################################
+
+# 1dpi sample1
+cellranger count \
+  --id=Lindsay-Milich \
+  --transcriptome=/scratch/projects/lemmon/jsc228/cns-trauma-seq/refdata-gex-mm10-2020-A \
+  --fastqs=/scratch/projects/lemmon/jsc228/cns-trauma-seq/data/bamtofastq/1dpi_sample1_possorted_genome_bam.bam.1/Lindsay-Milich_MissingLibrary_1_HMVM5BGX7
+# 1dpi sample 2
+cellranger count \
+  --id=2019-05-21-Lindsay-Milich-1 \
+  --transcriptome=/scratch/projects/lemmon/jsc228/cns-trauma-seq/refdata-gex-mm10-2020-A \
+  --fastqs=/scratch/projects/lemmon/jsc228/cns-trauma-seq/data/bamtofastq/1dpi_sample2_possorted_genome_bam.bam.1/2019-05-21-Lindsay-Milich-1_0_1_HGK7YBGXB
+# 1dpi sample 3
+cellranger count \
+  --id=Lee-1-2-2020-09-22 \
+  --transcriptome=/scratch/projects/lemmon/jsc228/cns-trauma-seq/refdata-gex-mm10-2020-A \
+  --fastqs=/scratch/projects/lemmon/jsc228/cns-trauma-seq/data/bamtofastq/1dpi_sample3_possorted_genome_bam.bam.1/Lee-1-2-2020-09-22_0_1_HNTGLBGXF
+# 3dpi sample 1
+cellranger count \
+  --id=Lindsay-Milich-14 \
+  --transcriptome=/scratch/projects/lemmon/jsc228/cns-trauma-seq/refdata-gex-mm10-2020-A \
+  --fastqs=/scratch/projects/lemmon/jsc228/cns-trauma-seq/data/bamtofastq/3dpi_sample1_possorted_genome_bam.bam.1/Lindsay-Milich-14_MissingLibrary_1_HV5CFBGX7
+# 3dpi sample 2
+cellranger count \
+  --id=2019-05-22-Lindsay-Milich-3 \
+  --transcriptome=/scratch/projects/lemmon/jsc228/cns-trauma-seq/refdata-gex-mm10-2020-A \
+  --fastqs=/scratch/projects/lemmon/jsc228/cns-trauma-seq/data/bamtofastq/3dpi_sample2_possorted_genome_bam.bam.1/2019-05-22-Lindsay-Milich-3_0_1_HHTVCBGXB
+# 7dpi sample 1
+cellranger count \
+  --id=Lindsay-Milich-78 \
+  --transcriptome=/scratch/projects/lemmon/jsc228/cns-trauma-seq/refdata-gex-mm10-2020-A \
+  --fastqs=/scratch/projects/lemmon/jsc228/cns-trauma-seq/data/bamtofastq/7dpi_sample1_possorted_genome_bam.bam.1/Lindsay-Milich-78_MissingLibrary_1_HV5F5BGX7
+# 7dpi sample 2
+cellranger count \
+  --id=2019-05-23-Lindsay-Milich-7 \
+  --transcriptome=/scratch/projects/lemmon/jsc228/cns-trauma-seq/refdata-gex-mm10-2020-A \
+  --fastqs=/scratch/projects/lemmon/jsc228/cns-trauma-seq/data/bamtofastq/7dpi_sample2_possorted_genome_bam.bam.1/2019-05-23-Lindsay-Milich-7_0_1_HHTVNBGXB
+# uninj sample1
+cellranger count \
+  --id=Lindsay-Milich-95 \
+  --transcriptome=/scratch/projects/lemmon/jsc228/cns-trauma-seq/refdata-gex-mm10-2020-A \
+  --fastqs=/scratch/projects/lemmon/jsc228/cns-trauma-seq/data/bamtofastq/uninj_sample1_possorted_genome_bam.bam.1/Lindsay-Milich-95_MissingLibrary_1_HMVKHBGX7
+# uninj sample2
+cellranger count \
+  --id=Lindsay-Milich-2-1 \
+  --transcriptome=/scratch/projects/lemmon/jsc228/cns-trauma-seq/refdata-gex-mm10-2020-A \
+  --fastqs=/scratch/projects/lemmon/jsc228/cns-trauma-seq/data/bamtofastq/uninj_sample2_possorted_genome_bam.bam.1/Lindsay-Milich-2-1_0_1_HM22WBGX9
+# uninj sample3
+cellranger count \
+  --id=Lee-U-2-2020-09-23 \
+  --transcriptome=/scratch/projects/lemmon/jsc228/cns-trauma-seq/refdata-gex-mm10-2020-A \
+  --fastqs=/scratch/projects/lemmon/jsc228/cns-trauma-seq/data/bamtofastq/uninj_sample3_possorted_genome_bam.bam.1/Lee-U-2-2020-09-23_0_1_HTYVNBGXG
+
+
+####################################################
+# Script End
+####################################################
+```
+
+I had to re-adjust my `.gitignore` file in such a way so that error messages related to non-existing directories would be prevented. I did this by manually specifying sub-directories in the `results` folder so that a reader of the git repository would know approximately which analyses were performed.
+
+I double checked to see whether specific input/output files are needed for downstream RNA velocity analysis, specificalyl scVelo. All that is needed is the resulting `.bam` file, so I am running `cellranger count` with nearly default settings.
+
 
