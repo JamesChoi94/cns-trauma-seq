@@ -24,6 +24,4 @@ results/quality-control-data-processing/**
 renv/**
 
 # Lab notebook/record-keeping files for private use only
-notebook.docx
-notebook.pdf
-
+notebook*
