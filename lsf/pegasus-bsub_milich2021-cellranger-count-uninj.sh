@@ -15,6 +15,8 @@
 # Set directory variables and conda env
 ####################################################
 
+conda activate cns-trauma-seq
+
 export PATH=/nethome/jsc228/cellranger-6.0.2:$PATH
 
 # ! NOTE: in-run $HOME is not cns-trauma-seq/

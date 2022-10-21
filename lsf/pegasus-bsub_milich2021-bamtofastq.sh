@@ -14,8 +14,13 @@
 # Set directory variables and conda env
 ####################################################
 
+conda activate cns-trauma-seq
+
 export PATH=/nethome/jsc228/cellranger-6.0.2:$PATH
 cd /scratch/projects/lemmon/jsc228/cns-trauma-seq
+cd data/
+mkdir bamtofastq
+cd bamtofastq
 # BAM_DIR=data/bams/
 # FASTQ_DIR=data/bamtofastq/
 # SAMPLE_NAMES=$(cat milich2021-ftp-urls.txt | rev | cut -d "/" -f 1 | rev)

@@ -14,6 +14,7 @@
 # Set directory variables and conda env
 ####################################################
 
+conda activate cns-trauma-seq
 cd /scratch/projects/lemmon/jsc228/cns-trauma-seq
 mkdir data
 cd data
