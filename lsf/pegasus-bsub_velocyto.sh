@@ -1,5 +1,5 @@
-#!/bin/bash
-#BSUB -J cns-trauma-seq_cellranger-count
+#!/bin/bash 
+#BSUB -J cns-trauma-seq_velocyto
 #BSUB -P lemmon
 #BSUB -o %J.out
 #BSUB -e %J.err
