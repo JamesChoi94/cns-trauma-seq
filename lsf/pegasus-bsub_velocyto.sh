@@ -28,11 +28,11 @@ cd /scratch/projects/lemmon/jsc228/cns-trauma-seq/
 ####################################################
 
 velocyto run10x \
-  data/cellranger/Lindsay-Milich-14/outs/possorted_genome_bam.bam \
+  data/cellranger/Lindsay-Milich-14 \
   refdata-gex-mm10-2020-A/genes/genes.gtf
 
 velocyto run10x \
-  data/cellranger/2019-05-22-Lindsay-Milich-3/outs/possorted_genome_bam.bam \
+  data/cellranger/2019-05-22-Lindsay-Milich-3 \
   refdata-gex-mm10-2020-A/genes/genes.gtf
 
 # fin
