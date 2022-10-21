@@ -17,7 +17,7 @@
 **/*.rds
 
 # Outputs of analyses (inferential types of things)
-results/cellranger/**
+**/cellranger/**
 results/quality-control-data-processing/**
 
 # machine-specifics like environments and paths

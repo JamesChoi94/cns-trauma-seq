@@ -1,0 +1,11 @@
+SampleName,SampleID_cellranger,Study,Species,Tissue,Age_months,DiseaseModel,Condition,SRA_Accession,ftp_url
+Milich_Sham_rep1,Lindsay-Milich-95,Milich2021,mmusculus,SpinalCord,2,T8_contusion,Sham,SRR13192645,
+Milich_Sham_rep2,Lindsay-Milich-2-1,Milich2021,mmusculus,SpinalCord,2,T8_contusion,Sham,SRR13192646,
+Milich_Sham_rep3,Lee-U-2-2020-09-23,Milich2021,mmusculus,SpinalCord,2,T8_contusion,Sham,SRR13192647,
+Milich_1dpi_rep1,Lindsay-Milich,Milich2021,mmusculus,SpinalCord,2,T8_contusion,1dpi,SRR13192648,
+Milich_1dpi_rep2,2019-05-21-Lindsay-Milich-1,Milich2021,mmusculus,SpinalCord,2,T8_contusion,1dpi,SRR13192649,
+Milich_1dpi_rep3,Lee-1-2-2020-09-22,Milich2021,mmusculus,SpinalCord,2,T8_contusion,1dpi,SRR13192650,
+Milich_3dpi_rep1,Lindsay-Milich-14,Milich2021,mmusculus,SpinalCord,2,T8_contusion,3dpi,SRR13192651,
+Milich_3dpi_rep2,2019-05-22-Lindsay-Milich-3,Milich2021,mmusculus,SpinalCord,2,T8_contusion,3dpi,SRR13192652,
+Milich_7dpi_rep1,Lindsay-Milich-78,Milich2021,mmusculus,SpinalCord,2,T8_contusion,7dpi,SRR13192653,
+Milich_7dpi_rep2,2019-05-23-Lindsay-Milich-7,Milich2021,mmusculus,SpinalCord,2,T8_contusion,7dpi,SRR13192654,

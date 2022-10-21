@@ -22,6 +22,7 @@ knitr::opts_knit$set(root.dir = 'D:/cns-trauma-seq/')
 Single cell sequencing resource of data from central nervous system traumatic injury.
 
 
+
 ## 2022-08-29
 
 Workflow for this study and single cell model were separated into two tasks where the first task was to preprocess sequencing data (e.g. `.fastq`/`.fq` files) into gene-count numeric matrices and the second task was to perform cluster analysis and differential expression tests. 
@@ -44,9 +45,9 @@ So I needed a method to take these accessions and get the full list of download 
 
 I confirmed that `ffq` is working properly using SRR13192645. The info I needed was under `"{"SRR13192645":"files":{ftp:["url":...]}}`. 
 
-```{}
->> ffq SRR13192645 | head
-[2022-08-29 15:34:27,261]    INFO Parsing run SRR13192645
+```{bash}
+ffq SRR13192645 | head
+[2022-08-29 15:34:27,261]   
 {
     "SRR13192645": {
         "accession": "SRR13192645",
@@ -58,7 +59,7 @@ I confirmed that `ffq` is working properly using SRR13192645. The info I needed 
             "assembly": "GRCm38",
             "ENA-FIRST-PUBLIC": "2021-03-02",
             
->> ffq -o ffq-output.json SRR13192645 SRR13192646 SRR13192647 SRR13192648 SRR13192649 SRR13192650 SRR13192651 SRR13192652 SRR13192653 SRR13192654
+ffq -o ffq-output.json SRR13192645 SRR13192646 SRR13192647 SRR13192648 SRR13192649 SRR13192650 SRR13192651 SRR13192652 SRR13192653 SRR13192654
 ```
 
 
@@ -86,25 +87,25 @@ I'm downloading `cellranger-6.0.2` because that is the version Dr Griswold at HI
 
 In pegasus interactive mode:
 
-```
+```{bash}
 # Download cellranger binary
-$ curl -o cellranger-6.0.2.tar.gz "https://cf.10xgenomics.com/releases/cell-exp/cellranger-6.0.2.tar.gz?Expires=1662008119&Policy=eyJTdGF0ZW1lbnQiOlt7IlJlc291cmNlIjoiaHR0cHM6Ly9jZi4xMHhnZW5vbWljcy5jb20vcmVsZWFzZXMvY2VsbC1leHAvY2VsbHJhbmdlci02LjAuMi50YXIuZ3oiLCJDb25kaXRpb24iOnsiRGF0ZUxlc3NUaGFuIjp7IkFXUzpFcG9jaFRpbWUiOjE2NjIwMDgxMTl9fX1dfQ__&Signature=bdlpEB~od9rl6LMWCIZqvP-ESlKuyg~Upc45K0nQlHgprSBPviOZWKj6uuRA4UZK4IjQfqR94TFmgdkztg-Tv8kV3eFK0Cojyrxmokhqrqwnp0Zr5Rj4XjU66Z8jlQEtQfhjdoBfkqu34J7ZBreknFLxs9XEzygPMxew-~CwIGdVzNaIqVw9E0Vm0rAdQD44gEFdAcEgJcjyccBHJZuHD7yddfi7R58osZ~0LDTq4eaGNlJQaCTbElLgEPKoRolKWqBsOMwU1hn28vKUZjcX~h3XJyYzovqZahavghQ7tXYf6-epzB~vGjY43XlsvMFFSCbGSxI5gertXfWhg4ToLg__&Key-Pair-Id=APKAI7S6A5RYOXBWRPDA"
+curl -o cellranger-6.0.2.tar.gz "https://cf.10xgenomics.com/releases/cell-exp/cellranger-6.0.2.tar.gz?Expires=1662008119&Policy=eyJTdGF0ZW1lbnQiOlt7IlJlc291cmNlIjoiaHR0cHM6Ly9jZi4xMHhnZW5vbWljcy5jb20vcmVsZWFzZXMvY2VsbC1leHAvY2VsbHJhbmdlci02LjAuMi50YXIuZ3oiLCJDb25kaXRpb24iOnsiRGF0ZUxlc3NUaGFuIjp7IkFXUzpFcG9jaFRpbWUiOjE2NjIwMDgxMTl9fX1dfQ__&Signature=bdlpEB~od9rl6LMWCIZqvP-ESlKuyg~Upc45K0nQlHgprSBPviOZWKj6uuRA4UZK4IjQfqR94TFmgdkztg-Tv8kV3eFK0Cojyrxmokhqrqwnp0Zr5Rj4XjU66Z8jlQEtQfhjdoBfkqu34J7ZBreknFLxs9XEzygPMxew-~CwIGdVzNaIqVw9E0Vm0rAdQD44gEFdAcEgJcjyccBHJZuHD7yddfi7R58osZ~0LDTq4eaGNlJQaCTbElLgEPKoRolKWqBsOMwU1hn28vKUZjcX~h3XJyYzovqZahavghQ7tXYf6-epzB~vGjY43XlsvMFFSCbGSxI5gertXfWhg4ToLg__&Key-Pair-Id=APKAI7S6A5RYOXBWRPDA"
 
-$ tar -xvzf cellranger-6.0.2.tar.gz
+tar -xvzf cellranger-6.0.2.tar.gz
 
 # Download reference data files (genome annotations, etc.)
-$ curl -O https://cf.10xgenomics.com/supp/cell-exp/refdata-gex-mm10-2020-A.tar.gz
+curl -O https://cf.10xgenomics.com/supp/cell-exp/refdata-gex-mm10-2020-A.tar.gz
 
-$ tar -xzvf refdata-gex-GRCh38-2020-A.tar.gz
+tar -xzvf refdata-gex-GRCh38-2020-A.tar.gz
 
 # Also added to PATH in .bashrc
-$ export PATH=/opt/cellranger-6.0.2:$PATH
-$ cellranger sitecheck > sitecheck.txt
-$ cellranger testrun --id=tiny
+export PATH=/opt/cellranger-6.0.2:$PATH
+cellranger sitecheck > sitecheck.txt
+cellranger testrun --id=tiny
 
-$ cd cellranger-6.0.2
-$ cd /scratch/projects/lemmon/jsc228/cns-trauma-seq
-$ /nethome/jsc228/cellranger-6.0.2/lib/bin/bamtofastq --help
+cd cellranger-6.0.2
+cd /scratch/projects/lemmon/jsc228/cns-trauma-seq
+/nethome/jsc228/cellranger-6.0.2/lib/bin/bamtofastq --help
 
 bamtofastq v1.3.1
 10x Genomics BAM to FASTQ converter.
@@ -122,9 +123,9 @@ bamtofastq v1.3.1
     Older 10x pipelines require one of the arguments listed below to indicate
     which pipeline created the BAM.
     
-$ export PATH=/nethome/jsc228/cellranger-6.0.2/lib/bin/bamtofastq:$PATH
+export PATH=/nethome/jsc228/cellranger-6.0.2/lib/bin/bamtofastq:$PATH
 
-$ /nethome/jsc228/cellranger-6.0.2/lib/bin/bamtofastq --traceback data/bams/3dpi_sample1_possorted_genome_bam.bam.1 test
+/nethome/jsc228/cellranger-6.0.2/lib/bin/bamtofastq --traceback data/bams/3dpi_sample1_possorted_genome_bam.bam.1 test
 bamtofastq v1.3.1
 Args { arg_bam: "data/bams/3dpi_sample1_possorted_genome_bam.bam.1", arg_output_path: "test", flag_nthreads: 4, flag_locus: None, flag_bx_list: None, flag_reads_per_fastq: 50000000, flag_gemcode: false, flag_lr20: false, flag_cr11: false, flag_traceback: true }
 entry
@@ -148,7 +149,7 @@ There are other options available for `cellranger count` but right now I'm too l
 
 `cellranger count` ran successfully for `3dpi_sample1_possorted_genome_bam.bam.1` but not for `3dpi_sample1_possorted_genome_bam.bam.2`. No `outs/` directory was made and I got the following error message: 
 
-```
+````{{bash}}
 2022-09-02 13:46:27 [runtime] (failed)          ID.Lindsay-Milich-3.SC_RNA_COUNTER_CS.SC_MULTI_CORE.MULTI_GEM_WELL_PROCESSOR.COUNT_GEM_WELL_PROCESSOR._BASIC_SC_RNA_COUNTER._MATRIX_COMPUTER.MAKE_SHARD
 
 [error] Pipestance failed. Error log at:
@@ -158,11 +159,11 @@ Log message:
 IO error in FASTQ file '"/scratch/projects/lemmon/jsc228/cns-trauma-seq/data/bamtofastq/3dpi_sample2_possorted_genome_bam.bam.1/2019-05-22-Lindsay-Milich-3_0_1_HHTVCBGXB/bamtofastq_S1_L001_I1_001.fastq.gz"', line: 5412024: unexpected end of file
 
 Waiting 6 seconds for UI to do final refresh.
-```
+````
 
 There might be an issue with the `bam` file. I checked the file with the following and got a similar message:
 
-```
+```{bash}
 $ gunzip bamtofastq_S1_L001_I1_001.fastq.gz
 ```
 
@@ -382,7 +383,7 @@ I submitted a Pegasus job on 2022-10-17 to run `bamtofastq` from `cellranger` on
 
 Said job:
 
-```
+```{bash}
 #!/bin/bash
 #BSUB -J cns-trauma-seq_bamtofastq
 #BSUB -P lemmon
@@ -486,7 +487,7 @@ I started running `cellranger count` for all of the newly generated `fastq` file
 
 Updated script for `cellranger count`:
 
-```
+```{bash}
 #!/bin/bash
 #BSUB -J cns-trauma-seq_cellranger-count
 #BSUB -P lemmon
@@ -582,7 +583,7 @@ I double checked to see whether specific input/output files are needed for downs
 `cellranger count` is done for all samples. No obvious errors were reported other than run-time errors (I set the pegasus job wall time to 10 hours, which was not enough). To get through processing faster, I submitted a separate pegasus `big-mem` job for each time point (4 jobs total). I submitted the job on Tuesday 2022-10-18 at 6:30am and most jobs were finished by same day 2:30pm. All in all, not a slow process.
 
 
-```
+```{bash}
 cd /mnt/d/cns-trauma-seq/data/cellranger
 rsync -avn \
   --exclude="_*" \
